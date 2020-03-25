@@ -8,12 +8,12 @@ LABEL io.k8s.description="Platform for building (Maven) and running plain Java a
       org.jboss.deployments-dir="/deployments" \
       Maintainer="konstantin_petrenko@epam.com"
 
-# Install Java openjdk 13 2019-09-17 OpenJDK Runtime Environment (build 13+33)
+# Install Java openjdk 14 
 RUN cd /opt && \
-    wget https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz && \
-    tar -xvf openjdk-13_linux-x64_bin.tar.gz && \
-    rm -rf openjdk-13_linux-x64_bin.tar.gz && \
-    update-alternatives --install /usr/bin/java java /opt/jdk-13/bin/java 1 && \
+    wget https://download.java.net/java/GA/jdk14/076bab302c7b4508975440c56f6cc26a/36/GPL/openjdk-14_linux-x64_bin.tar.gz && \
+    tar -xvf openjdk-14_linux-x64_bin.tar.gz && \
+    rm -rf openjdk-14_linux-x64_bin.tar.gz && \
+    update-alternatives --install /usr/bin/java java /opt/jdk-14/bin/java 1 && \
     update-alternatives --display java && \
     java --version && \
     mkdir -p /opt/s2i/destination

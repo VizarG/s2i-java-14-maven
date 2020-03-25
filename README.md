@@ -1,1 +1,1 @@
-# s2i-java-13-maven
+# s2i-java-14-maven
