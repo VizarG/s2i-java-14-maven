@@ -1,0 +1,67 @@
+#!/bin/bash -e 
+#
+# S2I assemble script for the 's2i-maven-java' image.
+# The 'assemble' script builds your application source so that it is ready to run.
+#
+# For more information refer to the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+: '
+This script does : 1. copy old artifacts from previous build or create new in .m2 dir when we start build
+				   2. build jars by maven
+				   3. copy new jars in /deployment and remove old jars 
+				   4. remove not nedded files in container 
+'
+set -e
+shopt -s dotglob
+
+# If the 's2i-maven-java' assemble script is executed with the '-h' flag, print the usage.
+if [[ "$1" == "-h" ]]; then
+	exec /usr/libexec/s2i/usage
+fi
+
+if [ ! -f /tmp/src/pom.xml ]; then
+  echo "FATAL - No pom.xml found"
+  exit 1
+fi
+
+echo now we will cp artifacts from previous build in assemble script
+pwd 
+
+if [ -d /tmp/artifacts/.m2 ]; then
+  echo "---> Restoring build artifacts..."
+  mv /tmp/artifacts/.m2 /opt/app-root/src/
+fi
+
+echo end of copying artifacts in assemble script
+
+echo dir before we will copy src
+pwd
+
+echo "---> Installing application source..."
+cp -Rf /tmp/src/. /opt/app-root/src/
+
+echo end of copying src from git 
+pwd
+
+echo "---> Building application from source..."
+mvn ${MVN_OPTS}
+
+echo "---> delete jars from previous deployment in /deployments/ "
+rm -rf /deployments/*jar 
+
+echo "---> Copying build application to /deployments..."
+# If there is more then one jar it may fail 
+cp -av ${JAR_PATH} /deployments/
+# cp -av /opt/app-root/src/target/*.jar /deployments/
+
+echo copy  artifacts
+if [ -d /opt/app-root/src/.m2 ]; then
+    cp -r /opt/app-root/src/.m2 /tmp/artifacts/
+    echo we have copy artifacts
+fi
+echo end of copy artifacts
+
+echo "---> remove not nedeed artifacts /tmp/src /opt/app-root"
+#remove not nedded artifacts and files 
+rm -rf /tmp/src/ /opt/app-root/src/* 

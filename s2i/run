@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# S2I run script for the 's2i-maven-java' image.
+# The run script executes the server that runs your application.
+#
+# For more information see the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+: '
+This script does : 1. cd in deployments and run jar with JAVA_OPTIONS
+'
+cd /deployments
+java $JAVA_OPTIONS 

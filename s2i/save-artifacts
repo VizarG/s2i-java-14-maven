@@ -1,0 +1,28 @@
+#!/bin/sh -e
+#
+# S2I save-artifacts script for the 's2i-maven-java2' image.
+# The archive contains the files and folders you want to re-use in the next build.
+#
+# For more information see the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+: '
+This script does : 1. this script should be runned every time when we use incremental buid 
+				   2. But it is not working
+				   3. copy new artifacts 
+'
+# It is not working i don't know ho to turn it on
+echo this is script to save-artifacts
+pwd 
+# pushd ${HOME} >/dev/null
+cd /opt/app-root/src/
+if [ -d .m2 ]; then
+    cp -r .m2 /tmp/artifacts/
+fi
+
+echo end of script to save-artifacts
+pwd
+
+ehco test of coping .m2
+ls -a /tmp/artifacts
+# popd >/dev/null

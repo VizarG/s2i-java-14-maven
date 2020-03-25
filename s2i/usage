@@ -1,0 +1,6 @@
+#!/bin/bash -e 
+cat <<EOF
+This is the s2i-maven-3.6.3-java-13 S2I image:
+You can then run the resulting image via:
+docker run <application image>
+EOF
