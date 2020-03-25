@@ -29,12 +29,12 @@ RUN cd /opt && \
 # Copy the example S2I scripts to the expected location
 COPY ./s2i/ /usr/libexec/s2i
 
-# Install jprofiler 11 
-RUN  cd /  && \
-     wget -P / https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_linux_11_0_1.tar.gz && \
-     tar -xzf /jprofiler_linux_11_0_1.tar.gz  && \
-     chmod 777 /jprofiler11.0.1 && \
-     rm -rf /jprofiler_linux_11_0_1.tar.gz
+# Install jprofiler 11 (if you need it jost uncomment it)
+# RUN  cd /  && \
+#      wget -P / https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_linux_11_0_1.tar.gz && \
+#      tar -xzf /jprofiler_linux_11_0_1.tar.gz  && \
+#      chmod 777 /jprofiler11.0.1 && \
+#      rm -rf /jprofiler_linux_11_0_1.tar.gz
 
 # Give premissions to clean dirs and deploy from deployments dir
 RUN chmod -R 777 /opt/app-root /tmp && \
