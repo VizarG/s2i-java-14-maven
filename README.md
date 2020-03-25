@@ -16,7 +16,7 @@ ${JAR_PATH} path to your jar. Then this jar will be copied to /deployments
 ```
 
 ##  Script run 
-used to run jar or war file 
+Used to run jar or war file 
 
 Script run Variables	
 ```
